@@ -1,3 +1,13 @@
+# fila de clientes
+def monitorar_fila():
+    while time.time() - inicio_tempo < TEMPO_DE_SIMULACAO / TEMPO_FATOR:
+        if not fila_de_clientes.empty():
+            fila_snapshot = list(fila_de_clientes.queue)  # Cria uma cópia da fila atual
+            clientes_ids = [cliente.id for cliente in fila_snapshot]
+            print(f"Clientes na fila: {len(clientes_ids)} - IDs: {clientes_ids}")
+        time.sleep(1)  # Intervalo de 1 segundo para a atualização
+
+
 import threading
 import time
 import random
@@ -78,6 +88,10 @@ inicio_tempo = time.time()
 thread_cliente = threading.Thread(target=cliente_chegando)
 thread_cliente.start()
 
+# Iniciar a thread de monitoramento da fila
+thread_monitor_fila = threading.Thread(target=monitorar_fila)
+thread_monitor_fila.start()
+
 # Iniciar threads dos caixas
 threads_caixas = []
 for i in range(NUM_CAIXAS):
@@ -87,6 +101,9 @@ for i in range(NUM_CAIXAS):
 
 # Esperar a thread de clientes terminar
 thread_cliente.join()
+
+# Esperar a thread de monitoramento da fila terminar
+thread_monitor_fila.join()
 
 # Esperar todas as threads de caixa terminarem
 for thread in threads_caixas:
