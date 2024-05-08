@@ -22,7 +22,7 @@ TEMPO_ATENDIMENTO_MAX = 120         # segundos
 TEMPO_DE_SIMULACAO = 2 * 60 * 60    # 2 horas simuladas em segundos = 2min de simulação em vez de 2h
 TEMPO_FATOR = 60                    # fator de redução de tempo para a simulação 1/60
 
-NUM_CAIXAS = 5                      # número inicial de caixas = threads
+NUM_CAIXAS = 2                      # número inicial de caixas = threads
 
 # Threads e filas
 fila_de_clientes = queue.Queue()
